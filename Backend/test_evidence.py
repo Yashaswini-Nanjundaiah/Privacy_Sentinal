@@ -1,26 +1,40 @@
-from behaviour_engine import calculate_device_features
 from evidence_engine import calculate_evidence
-import pandas as pd
 
-data = pd.read_csv("../data/observations.csv")
 
-device_id = "AA:BB:CC:11:22:33"
+def test_known_device_low_concern():
 
-features = calculate_device_features(
-    device_id,
-    data
-)
+    features = {
+        "device_id": "AA:BB:CC:11:22:33",
+        "session_id": "TEST_001",
+        "persistence_seconds": 120,
+        "observation_count": 3,
+        "rssi_std": 2.5
+    }
 
-result = calculate_evidence(
-    features,
-    "KNOWN"
-)
+    result = calculate_evidence(
+        features,
+        "KNOWN"
+    )
 
-print("\nEvidence Result")
-print("----------------")
-print("Score:", result["score"])
-print("Assessment:", result["assessment"])
+    assert result["assessment"] == "LOW CONCERN"
+    assert result["score"] == 0
+    assert result["evidence"] == []
 
-print("\nEvidence:")
-for item in result["evidence"]:
-    print("-", item)
+
+def test_unknown_persistent_device_requires_investigation():
+
+    features = {
+        "device_id": "11:22:33:44:55:66",
+        "session_id": "TEST_002",
+        "persistence_seconds": 400,
+        "observation_count": 25,
+        "rssi_std": 6.0
+    }
+
+    result = calculate_evidence(
+        features,
+        "UNKNOWN"
+    )
+
+    assert result["score"] == 4
+    assert result["assessment"] == "REQUIRES INVESTIGATION"
