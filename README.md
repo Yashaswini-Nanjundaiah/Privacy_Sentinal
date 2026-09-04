@@ -56,13 +56,13 @@ Evidence Engine
         ↓
 Streamlit Dashboard
 
-The ESP32 will provide the wireless observations in the hardware-integrated
-version. During software development and testing, a simulator is used to
-generate controlled observations.
+The ESP32 provides the wireless observations in the hardware sensing layer.
+During software development and testing, a simulator is used to generate
+controlled observations for evaluating the analytics pipeline.
 
 ## Current Features
 
-- Real-time wireless observation ingestion
+- Wireless observation ingestion through FastAPI
 - Session-based observation tracking
 - Known and unknown device identification
 - Device enrollment
