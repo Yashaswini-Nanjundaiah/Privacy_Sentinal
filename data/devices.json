@@ -1,0 +1,10 @@
+{
+    "AA:BB:CC:11:22:33": {
+        "name": "Living Room TV",
+        "type": "Television"
+    },
+    "DD:EE:FF:44:55:66": {
+        "name": "phone",
+        "type": "Phone"
+    }
+}
